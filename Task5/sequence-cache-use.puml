@@ -1,0 +1,36 @@
+@startuml "Cache-Aside for MES Api"
+
+actor Operator as "Operator"
+participant MES as "MES Frontend (React)"
+participant MES_API as "MES Backend (C#)"
+database MES_DB as "MES DB"
+database Cache as "Cache (Redis)"
+
+
+Operator -> MES: Запрос списка заказов
+MES -> MES_API: GET /orders
+MES_API -> Cache: KEYS order_*
+
+alt данные есть в кэше
+
+Cache -> MES_API: список закэшированных заказов
+
+else кэш пустой
+
+MES_API -> MES_DB: SELECT * FROM orders ORDER BY createdAt DESC
+MES_DB --> MES_API: новый список заказов
+MES_API ---> Cache: Записать order keys
+
+end
+
+MES_API -> MES: Список заказов
+MES -> Operator: Список заказов
+
+Operator -> MES: Обновить статус заказа
+MES -> MES_API: UPDATE /orders (id, new status)
+MES_API -> MES_DB: UPDATE orders WHERE id = <id>
+MES_API --> Cache: ADD KEY order_<id>
+MES_API --> MES: Http 200 (OK)
+MES --> Operator: Статус заказа обновлён
+
+@enduml
