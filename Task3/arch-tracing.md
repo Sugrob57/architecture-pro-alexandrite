@@ -42,3 +42,20 @@
 - Аавторизация в Grafana и Jaeger через корпоративный SSO;
 - IP WhiteList по подсетям офисов комании;
 - в данных трейсинга не должно быть чувствительных данных - только статусы, идентификаторы, временные метки и т д.;
+
+# Пример реализации трейсинга в kubernetes
+
+Интсрукция по запуску: [Task3/k8s-jaeger-sample/README.md](/Task3/k8s-jaeger-sample/README.md)
+
+Пример трейса:
+1) [Task3/k8s_jaeger_1.png](/Task3/k8s_jaeger_1.png)
+![Task3/k8s_jaeger_1.png](/Task3/k8s_jaeger_1.png)
+
+2) [Task3/k8s_jaeger_2.png](/Task3/k8s_jaeger_2.png)
+![Task3/k8s_jaeger_2.png](/Task3/k8s_jaeger_2.png)
+
+3) [Task3/k8s_jaeger_3.png](/Task3/k8s_jaeger_3.png)
+![Task3/k8s_jaeger_3.png](/Task3/k8s_jaeger_3.png)
+
+4) [Task3/k8s_jaeger_4.png](/Task3/k8s_jaeger_4.png)
+![Task3/k8s_jaeger_4.png](/Task3/k8s_jaeger_4.png)
